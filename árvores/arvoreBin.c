@@ -97,7 +97,7 @@ void inserir(Node* no, int valor){
     Node* noPai;
     int maior;    
     
-    while (no != NULL){
+    if (no != NULL){
         maior = getMaior(no->valor, valor);
         noPai = no;
         
@@ -146,7 +146,7 @@ Node* buscarVerificarNulidade(Arvore* arvore, int valor){
 Node* buscar(Node* no, int valor){
     Node* encontrado;
     
-    while (no != NULL){
+    if (no != NULL){
         if(no->valor == valor){
             encontrado = no;
         }
