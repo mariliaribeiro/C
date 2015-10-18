@@ -19,24 +19,23 @@ struct arvoreBinaria {
 Arvore* criaArvore();
 Node* criaNode();
 int estaVazia(Arvore*);
-int altura(Arvore*);
 int getMaior(int, int);
-void inserirVerificarNulidade(Arvore*,int);
-void inserir(Node*,int);
-void inserirRaiz(Arvore*, int);
-void inserirSAE(Node*, int);
-void inserirSAD(Node*, int);
+
+//inserção
+Node* inserirNo(int);
+Arvore* inserir(Arvore*,int);
 void popular(Arvore * arvore);
-void imprimeArvore(Arvore*);
+void imprimeArvorePreOrdem(Arvore*);
+
+//busca
 Node* buscarVerificarNulidade(Arvore*, int);
 Node* buscar(Node*, int);
 void imprimeBusca(Node*);
-
 /* Programa principal */
 int main(){
 	Arvore* minhaArvore;
 	minhaArvore = criaArvore(); 
-    
+       
     popular(minhaArvore);
     
     printf("\n\nBuscando valores da árvore \n");
@@ -46,7 +45,7 @@ int main(){
     imprimeBusca(buscarVerificarNulidade(minhaArvore, 31));
     
     printf("\n\nÁrvore pré-ordem:\n");
-    imprimeArvore(minhaArvore);
+    imprimeArvorePreOrdem(minhaArvore);
     
 	return 1;
 }
@@ -67,78 +66,57 @@ Node* criaNode(){
 	return novoNo;
 }
 
+Node* inserirNo(int valor){
+    Node* novoNo = criaNode();
+    novoNo->valor = valor;
+    return novoNo;
+}
+
 int estaVazia(Arvore* arvore){
 	return (arvore->raiz == NULL);
 }
 
-int altura(Arvore* arvore){
-    if(estaVazia(arvore)){
-        return arvore->altura;
+Arvore* inserir(Arvore* arvore, int valor){  
+    if (estaVazia(arvore)){
+        arvore->raiz = inserirNo(valor);
     }else{
-        return 0;//maior(altura())
+        if(arvore->raiz->valor < valor){
+            arvore->raiz = arvore->raiz->sad;
+            inserir(arvore, valor);
+        }
+        else if (arvore->raiz->valor > valor){
+            arvore->raiz = arvore->raiz->sae;
+            inserir(arvore, valor);
+        }
     }
+    return arvore;
 }
 
-int getMaior(int noValor, int valor){
-    if(noValor >= valor){
-        return noValor;
-    }else{
-        return valor;
-    }
+void popular(Arvore* arvore){   
+    inserir(arvore, 15); //raiz
+    inserir(arvore, 13); 
+    inserir(arvore, 20);      
+    inserir(arvore, 19); 
+    inserir(arvore, 31);
 }
 
-void inserirVerificarNulidade(Arvore* arvore, int valor){
+void imprimeArvorePreOrdem(Arvore* arvore){
+    Node* no = arvore->raiz;
     
-    if(estaVazia(arvore)){
-        inserirRaiz(arvore, valor);
-    }
-    else{
-        Node* no;
-        no = arvore->raiz;
-        inserir(no, valor);
-    }
-}
+    if(no != NULL){
+        printf("%d\n", arvore->raiz->valor);
         
-void inserir(Node* no, int valor){
-    Node* noPai;
-    int maior;    
-            
-    maior = getMaior(no->valor, valor);
-    noPai = no;        
-    if(maior != no->valor){
-        no = no->sad;
-        if(no != NULL){
-            inserir(no, valor);
-        }else{                
-            inserirSAD(noPai, valor);
+        if(no->sae != NULL){
+            arvore->raiz = no->sae;        
+            imprimeArvorePreOrdem(arvore);
         }
-    }
-    else{
-        no = no->sae;
-        if(no != NULL){
-            inserir(no, valor);
-        }else{                
-            inserirSAE(noPai, valor);
+        if(no->sad != NULL){
+            arvore->raiz = no->sad;        
+            imprimeArvorePreOrdem(arvore);
         }
+    }else{
+        printf("Árvore vazia!\n\n");
     }
-}
-
-void inserirRaiz(Arvore* arvore, int valor){
-	Node* novoNo = criaNode();
-	novoNo->valor = valor;
-    arvore->raiz = novoNo;
-}
-
-void inserirSAD(Node * noPai, int valor){
-	Node* novoNo = criaNode();
-	novoNo->valor = valor;
-    noPai->sad = novoNo;
-}
-
-void inserirSAE(Node * noPai, int valor){
-	Node* novoNo = criaNode();
-	novoNo->valor = valor;
-    noPai->sae = novoNo;
 }
 
 Node* buscarVerificarNulidade(Arvore* arvore, int valor){
@@ -174,7 +152,6 @@ Node* buscar(Node* no, int valor){
     return encontrado;
 }
 
-
 void imprimeBusca(Node* no){
     if(no != NULL){
         printf("Valor: %d --------> Endereço de memória: %p\n", no->valor, no);
@@ -183,29 +160,10 @@ void imprimeBusca(Node* no){
     }
 }
 
-void popular(Arvore* arvore){   
-    inserirVerificarNulidade(arvore, 15); //raiz
-    inserirVerificarNulidade(arvore, 13); 
-    inserirVerificarNulidade(arvore, 20);      
-    inserirVerificarNulidade(arvore, 19); 
-    inserirVerificarNulidade(arvore, 31);
-}
-
-void imprimeArvore(Arvore* arvore){
-    Node* no = arvore->raiz;
-    
-    if(no != NULL){
-        printf("%d\n", arvore->raiz->valor);
-        
-        if(no->sae != NULL){
-            arvore->raiz = no->sae;        
-            imprimeArvore(arvore);
-        }
-        if(no->sad != NULL){
-            arvore->raiz = no->sad;        
-            imprimeArvore(arvore);
-        }
+int getMaior(int noValor, int valor){
+    if(noValor >= valor){
+        return noValor;
     }else{
-        printf("Árvore vazia!\n\n");
+        return valor;
     }
 }
