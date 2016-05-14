@@ -17,6 +17,7 @@ struct node{
 //estrutura do grafo (vetor de lista de adjacencia)
 struct graph{
     int numeroVertices; //numero de vértices
+    int *qtdNosAdjacentes;
     No *vetorListaAdjacencia; // vetor da lista de adjacencia
 };
 
@@ -27,5 +28,10 @@ struct fifo{
     No *no;
     int tamanho;
 };
+
+#define BRANCO 0
+#define CINZA 1
+#define PRETO 2
+
 
 #endif

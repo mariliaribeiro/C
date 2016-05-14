@@ -11,7 +11,7 @@ void enfileirar(Fila *fila, No *no){
     }
     fila->tamanho++;
     
-    //printFila(fila);
+    printFila(fila);
 }
     
 No* desenfileirar(Fila *fila){
@@ -24,7 +24,7 @@ No* desenfileirar(Fila *fila){
     
     fila[fila->tamanho].no = NULL;
     fila->tamanho--;
-    //printFila(fila);
+    printFila(fila);
     return desenfileirado;
 }
 

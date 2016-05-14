@@ -11,21 +11,27 @@ Grafo *criaGrafo(int n){
     
     // cria um vetor de lista adjacente
     grafo->vetorListaAdjacencia = (No*) malloc(n * sizeof(No));
+    //grafo->qtdNosAdjacentes = (int*) malloc(n * sizeof(No));
     if(!grafo->vetorListaAdjacencia)
         printf("[ERRO FATAL]: INCAPAZ DE ALOCAR MEMÓRIA PARA O VETOR DE LISTA ADJACENTE \n SAINDO ...\n");
         
-    for(i = 0; i < n; i++)
+    for(i = 0; i < n; i++){
         grafo->vetorListaAdjacencia[i].proximo = NULL;
-        
+        //grafo[i].qtdNosAdjacentes = NULL;
+    }
+    
+    
     return grafo;
 }
 
 // add aresta para o grafo
-void addAresta(Grafo *grafo, int origem, int destino){    
+void addAresta(Grafo *grafo, int origem, int valor){    
     //adiciona uma aresta da origem para o destino na lista de adjacencia
-    No *novoNo = criaNo(destino);
+    No *novoNo = criaNo(valor);
     novoNo->proximo = grafo->vetorListaAdjacencia[origem].proximo;
     grafo->vetorListaAdjacencia[origem].proximo = novoNo;
+    //grafo[origem].qtdNosAdjacentes ++;
+    //grafo->qtdNosAdjacentes[origem] += 1;
 }
 
 //cria um nó na lista de adjacência

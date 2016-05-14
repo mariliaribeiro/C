@@ -10,12 +10,11 @@ void printBusca(Fila *fila, Grafo *grafo){
 }
 
 void buscaLargura(Grafo* grafo, No *no){
-    int u; int v;       
-    int BRANCO = 0; int CINZA = 1; int PRETO = 2;
-    Fila *fila = criaFila(grafo);
+    int u, v, x;       
     int s = 0;
+    Fila *fila = criaFila(grafo);
             
-    for(u = 0; u < grafo->numeroVertices; u ++){
+    for(u = 0; u < grafo->numeroVertices; u ++){       
         fila[u].cor = BRANCO;
         fila[u].distancia = 0;
         fila[u].pai = 0;
@@ -26,23 +25,41 @@ void buscaLargura(Grafo* grafo, No *no){
     
     enfileirar(fila, no);
     
-    while(fila != NULL){
+   while(fila->no != NULL){
         No* noDesenfileirado = desenfileirar(fila);
+        int qtdNosAdjacentes = getQtdNosAdjacentes(noDesenfileirado);
         
-        for(v=0; v < grafo->numeroVertices; v++){
-            if(fila[v].cor == BRANCO){
-                fila[v].cor = CINZA;
-                fila[v].distancia = fila[s].distancia+1;
-                fila[v].pai = no;
-                enfileirar(fila, grafo->vetorListaAdjacencia[v].proximo);                
-            }                
-            fila[s].cor = PRETO;
-        }
+        for(x=0; x < grafo->numeroVertices; x++){
+             //qtdNosAdjacentes = getQtdNosAdjacentes(grafo, s);
+             //printf("\n adj: %d", qtdNosAdjacentes);
+            for(v=0; v < qtdNosAdjacentes; v++){
+                if(fila[v].cor == BRANCO){
+                    fila[v].cor = CINZA;
+                    fila[v].distancia = fila[x].distancia+1;
+                    fila[v].pai = noDesenfileirado->vertices;
+                    enfileirar(fila, grafo->vetorListaAdjacencia[v].proximo);                
+                }                
+                fila[x].cor = PRETO;
+            }
+            //s++;
+            
+        } 
     }
     
     printBusca(fila, grafo);
 }
 
+//int getQtdNosAdjacentes(Grafo* grafo, int i){
+int getQtdNosAdjacentes(No *primeiro){
+    int qtdNosAdjacentes = 0;
+    //No *primeiro = grafo->vetorListaAdjacencia[i].proximo;
+    
+    while(primeiro){
+        qtdNosAdjacentes +=1;
+        primeiro = primeiro->proximo;
+    }
+    return qtdNosAdjacentes;
+}
 
 Fila *criaFila(Grafo *grafo){
     Fila *fila = (Fila*) malloc(grafo->numeroVertices * sizeof(Fila)); 
