@@ -11,14 +11,13 @@ Grafo *criaGrafo(int n){
     
     // cria um vetor de lista adjacente
     grafo->vetorListaAdjacencia = (No*) malloc(n * sizeof(No));
-    //grafo->qtdNosAdjacentes = (int*) malloc(n * sizeof(No));
     if(!grafo->vetorListaAdjacencia)
         printf("[ERRO FATAL]: INCAPAZ DE ALOCAR MEMÓRIA PARA O VETOR DE LISTA ADJACENTE \n SAINDO ...\n");
         
     for(i = 0; i < n; i++){
         grafo->vetorListaAdjacencia[i].proximo = NULL;
-        //grafo[i].qtdNosAdjacentes = NULL;
-    }
+        grafo->vetorListaAdjacencia[i].vertices = i;
+	}
     
     
     return grafo;
@@ -30,8 +29,6 @@ void addAresta(Grafo *grafo, int origem, int valor){
     No *novoNo = criaNo(valor);
     novoNo->proximo = grafo->vetorListaAdjacencia[origem].proximo;
     grafo->vetorListaAdjacencia[origem].proximo = novoNo;
-    //grafo[origem].qtdNosAdjacentes ++;
-    //grafo->qtdNosAdjacentes[origem] += 1;
 }
 
 //cria um nó na lista de adjacência
@@ -52,7 +49,7 @@ void mostraGrafo(Grafo *grafo){
    
     for (i=0; i < grafo->numeroVertices; i++){
         No *primeiro = grafo->vetorListaAdjacencia[i].proximo;
-        printf("\n [%d]->", i+1);
+        printf("\n [%d]->", i);
         
         while(primeiro){
             printf("%d->", primeiro->vertices);
