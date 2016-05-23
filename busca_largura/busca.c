@@ -37,6 +37,36 @@ void buscaLargura(Grafo* grafo, No *no){
     printBusca(fila, grafo);
 }
 
+void buscaLargura(Grafo* grafo, No *no){
+   Fila *fila = criaFila(grafo);
+            
+   fila->cor[no->vertices] = CINZA;
+   fila->distancia[no->vertices] = 0;
+   fila->pai[no->vertices] = 0;
+    
+   enfileirar(fila, no);
+       
+   while(fila->no != NULL){
+        No* noDesenfileirado = desenfileirar(fila);
+        No* noPai = noDesenfileirado;
+                
+        while(noDesenfileirado->proximo != NULL){
+			No*  noVertice = noDesenfileirado->proximo;            
+            if(fila->cor[noVertice->vertices] == BRANCO){
+				fila->cor[noVertice->vertices] = CINZA;
+				fila->distancia[noVertice->vertices] = (fila->distancia[noPai->vertices] + 1);
+				fila->pai[noVertice->vertices] = noPai->vertices;
+				enfileirar(fila, &grafo->vetorListaAdjacencia[noVertice->vertices]);                
+			}
+             noDesenfileirado = noVertice;               
+		}
+        fila->cor[noPai->vertices] = PRETO;
+            
+	} 
+    printBusca(fila, grafo);
+}
+
+
 Fila *criaFila(Grafo *grafo){
     Fila *fila = (Fila*) malloc(grafo->numeroVertices * sizeof(Fila)); 
     fila->cor = (int*) malloc(grafo->numeroVertices * sizeof(int*));

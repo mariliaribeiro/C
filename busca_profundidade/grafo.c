@@ -14,16 +14,19 @@ Grafo *criaGrafo(int n){
     if(!grafo->vetorListaAdjacencia)
         printf("[ERRO FATAL]: INCAPAZ DE ALOCAR MEMÓRIA PARA O VETOR DE LISTA ADJACENTE \n SAINDO ...\n");
         
-    for(i = 0; i < n; i++)
+    for(i = 0; i < n; i++){
         grafo->vetorListaAdjacencia[i].proximo = NULL;
-        
+        grafo->vetorListaAdjacencia[i].vertices = i;
+	}
+    
+    
     return grafo;
 }
 
 // add aresta para o grafo
-void addAresta(Grafo *grafo, int origem, int destino){    
+void addAresta(Grafo *grafo, int origem, int valor){    
     //adiciona uma aresta da origem para o destino na lista de adjacencia
-    No *novoNo = criaNo(destino);
+    No *novoNo = criaNo(valor);
     novoNo->proximo = grafo->vetorListaAdjacencia[origem].proximo;
     grafo->vetorListaAdjacencia[origem].proximo = novoNo;
 }

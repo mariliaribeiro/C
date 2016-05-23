@@ -1,0 +1,3 @@
+gcc main.c grafo.c fila.c busca.c -o busca
+
+./busca

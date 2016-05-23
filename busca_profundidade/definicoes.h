@@ -6,6 +6,8 @@
 
 typedef struct node No;
 typedef struct graph Grafo;
+typedef struct fifo Fila;
+typedef struct fifoProfundidade FilaP;
 
 // no da lista adjacente
 struct node{
@@ -16,7 +18,29 @@ struct node{
 //estrutura do grafo (vetor de lista de adjacencia)
 struct graph{
     int numeroVertices; //numero de vértices
+    int *qtdNosAdjacentes;
     No *vetorListaAdjacencia; // vetor da lista de adjacencia
 };
+
+struct fifo{
+    int *cor;
+    int *distancia;
+    int *pai;
+    No *no;
+    int tamanho;
+};
+
+struct fifoProfundidade{
+    int *cor;
+    int *pai;
+    int *distancia;
+    int *fila;
+    int tempo;
+};
+
+#define BRANCO 0
+#define CINZA 1
+#define PRETO 2
+
 
 #endif
