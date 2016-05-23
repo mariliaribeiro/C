@@ -11,8 +11,8 @@ int main(){
     addAresta(grafo, 1, 2);
     addAresta(grafo, 2, 3);
     addAresta(grafo, 3, 1);
-    addAresta(grafo, 4, 2);
     addAresta(grafo, 4, 5);
+    addAresta(grafo, 4, 2);    
     addAresta(grafo, 5, 5);
     
     printf("\n GRAFO DIRECIONADO - DIGRAFO"); 

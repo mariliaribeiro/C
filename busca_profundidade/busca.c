@@ -39,7 +39,7 @@ void buscaProfundidade(Grafo *grafo, No *no, FilaP *fila){
     while(u->proximo != NULL){
         No* v = u->proximo;
         if(fila->cor[v->vertices] == BRANCO){
-            fila->pai[v->vertices] = u->vertices;
+            fila->pai[v->vertices] = no->vertices;
             buscaProfundidade(grafo, &grafo->vetorListaAdjacencia[v->vertices], fila);
         }        
         u = v;
