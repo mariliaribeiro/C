@@ -16,9 +16,11 @@ void buscaLargura(Grafo* grafo, No *no){
    fila->pai[no->vertices] = 0;
     
    enfileirar(fila, no);
+   printf("\nenfileirado: %d", fila[no->vertices].no->vertices);
        
    while(fila->no != NULL){
         No* noDesenfileirado = desenfileirar(fila);
+        printf("\ndesenfileirado: %d", noDesenfileirado->vertices);
         No* noPai = noDesenfileirado;
                 
         while(noDesenfileirado->proximo != NULL){
@@ -28,35 +30,7 @@ void buscaLargura(Grafo* grafo, No *no){
 				fila->distancia[noVertice->vertices] = (fila->distancia[noPai->vertices] + 1);
 				fila->pai[noVertice->vertices] = noPai->vertices;
 				enfileirar(fila, &grafo->vetorListaAdjacencia[noVertice->vertices]);                
-			}
-             noDesenfileirado = noVertice;               
-		}
-        fila->cor[noPai->vertices] = PRETO;
-            
-	} 
-    printBusca(fila, grafo);
-}
-
-void buscaLargura(Grafo* grafo, No *no){
-   Fila *fila = criaFila(grafo);
-            
-   fila->cor[no->vertices] = CINZA;
-   fila->distancia[no->vertices] = 0;
-   fila->pai[no->vertices] = 0;
-    
-   enfileirar(fila, no);
-       
-   while(fila->no != NULL){
-        No* noDesenfileirado = desenfileirar(fila);
-        No* noPai = noDesenfileirado;
-                
-        while(noDesenfileirado->proximo != NULL){
-			No*  noVertice = noDesenfileirado->proximo;            
-            if(fila->cor[noVertice->vertices] == BRANCO){
-				fila->cor[noVertice->vertices] = CINZA;
-				fila->distancia[noVertice->vertices] = (fila->distancia[noPai->vertices] + 1);
-				fila->pai[noVertice->vertices] = noPai->vertices;
-				enfileirar(fila, &grafo->vetorListaAdjacencia[noVertice->vertices]);                
+                printf("\nenfileirado: %d", noVertice   ->vertices);
 			}
              noDesenfileirado = noVertice;               
 		}

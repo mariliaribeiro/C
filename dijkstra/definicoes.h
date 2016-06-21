@@ -7,6 +7,9 @@
 typedef struct node No;
 typedef struct graph Grafo;
 typedef struct estrutua_dijkstra Dijkstra;
+typedef struct fifo Fila;
+typedef struct vetor Vetor;
+
 
 // no da lista adjacente
 struct node{
@@ -27,6 +30,19 @@ struct estrutua_dijkstra{
     int *distancia;
     int distrancia_provisoria;
     No *no;
+    No *minimo;
+};
+
+struct fifo{
+    No *no;
+    //int *distancia;
+    //Caminho* caminho;
+    int tamanho;
+};
+
+struct vetor{
+    No* no;
+    int tamanho;    
 };
 
 #define BRANCO 0

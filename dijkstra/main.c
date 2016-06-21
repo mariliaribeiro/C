@@ -1,6 +1,9 @@
 #include "definicoes.h"
 #include "grafo.h"
 #include "busca.h"
+//#include "heap.h"
+#include "fila.h"
+
 
 int main(){    
     Grafo *grafo = criaGrafo(5);

@@ -18,7 +18,6 @@ struct node{
 //estrutura do grafo (vetor de lista de adjacencia)
 struct graph{
     int numeroVertices; //numero de vértices
-    int *qtdNosAdjacentes;
     No *vetorListaAdjacencia; // vetor da lista de adjacencia
 };
 

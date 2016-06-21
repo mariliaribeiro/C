@@ -5,4 +5,5 @@
 void dijkstra(Grafo*, No*);
 Dijkstra *criaDijkstra(Grafo*);
 void printBusca(Dijkstra*, Grafo*);
+Fila *criaFila(Grafo *grafo);
 #endif

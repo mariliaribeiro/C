@@ -30,7 +30,6 @@ void dfs(Grafo *grafo){
 }
 
 void buscaProfundidade(Grafo *grafo, No *no, FilaP *fila){
-    int i = 0;    
     fila->cor[no->vertices] = CINZA;
     fila->tempo += 1;
     fila->distancia[no->vertices] = fila->tempo;
